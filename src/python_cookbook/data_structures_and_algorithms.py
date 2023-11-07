@@ -277,15 +277,186 @@ b = {
 }
 print('a:', a)
 print('b:', b)
-print('set(a.items()):',set(a.items()))
-print('a.items():',a.items())
+print('set(a.items()):', set(a.items()))
+print('a.items():', a.items())
 
 print(get_plach1(), 'a.keys() & b.keys();', a.keys() & b.keys())
 print(get_plach1(), 'a.keys() - b.keys():', a.keys() - b.keys())
 print(get_plach1(), 'a.items() & b.items():', a.items() & b.items())
 print(get_plach1(), 'a.items() - b.items():', a.items() - b.items())
 
-c = {key:a[key] for key in a.keys() - {'a','z'}}
+c = {key: a[key] for key in a.keys() - {'a', 'z'}}
 print(get_plach1(), c)
 
 prn_tem('1.10. Removing Duplicates from a Sequence while Maintaining Order')
+
+
+def dedupe(items, key=None):
+    seen = set()
+    for item in items:
+        val = item if key is None else key(item)
+        if val not in seen:
+            yield item
+            seen.add(val)
+
+
+a = [{'x': 1, 'y': 2}, {'x': 1, 'y': 3}, {'x': 1, 'y': 2}, {'x': 2, 'y': 4}]
+
+print(get_plach1(), list(dedupe(a, key=lambda i: ((i['x']), i['y']))))
+
+prn_tem('1.11. Naming a Slice')
+###### 0123456789012345678901234567890123456789012345678901234567890'
+record = '....................100      .......513.25         ..........'
+print('record.index("100")', record.index('100'))
+print('record.index("513")', record.index('513'))
+SHARES = slice(20, 32)
+PRICE = slice(36, 42)
+print(get_plach1(), record[SHARES], record[PRICE])
+
+prn_tem('1.12. Determining the Most Frequently Occurring Items in a Sequence')
+words = [
+    'look', 'into', 'my', 'eyes', 'look', 'into', 'my', 'eyes',
+    'the', 'eyes', 'the', 'eyes', 'the', 'eyes', 'not', 'around', 'the',
+    'eyes', "don't", 'look', 'around', 'the', 'eyes', 'look', 'into',
+    'my', 'eyes', "you're", 'under'
+]
+from collections import Counter
+
+word_counts = Counter(words)
+top_three = word_counts.most_common(3)
+print(get_plach1(), 'top_three', top_three)
+print(get_plach1(), 'word_counts.items()', word_counts.items())
+print(get_plach1(), "word_counts['look']", word_counts['look'])
+print(get_plach1(), "word_counts['my']", word_counts['my'])
+
+for word in word_counts:
+    word_counts[word] += 1
+print(get_plach1(), 'word_counts.items()', word_counts.items())
+morewords = ['why', 'are', 'you', 'not', 'looking', 'in', 'my', 'eyes']
+word_counts.update(morewords)
+print(get_plach1(), word_counts)
+
+prn_tem('1.13. Sorting a List of Dictionaries by a Common Key')
+
+rows = [
+    {'fname': 'John', 'lname': 'Cleese', 'uid': 1001},
+    {'fname': 'Brian', 'lname': 'Jones', 'uid': 1003},
+    {'fname': 'David', 'lname': 'Beazley', 'uid': 1002},
+    {'fname': 'David', 'lname': 'Beazley', 'uid': 1002},
+    {'fname': 'Big', 'lname': 'Jones', 'uid': 1004}
+]
+from operator import itemgetter
+
+rows_by_fname = sorted(rows, key=itemgetter('fname'))
+rows_by_uid = sorted(rows, key=itemgetter('uid'))
+print("rows_by_fname", rows_by_uid)
+print('rows_by_uid', rows_by_uid)
+
+prn_tem('1.14. Sorting Objects Without Native Comparison Support')
+from operator import attrgetter
+
+
+class User:
+    def __init__(self, user_id):
+        self.user_id = user_id
+
+    def __repr__(self):
+        return 'User({})'.format(self.user_id)
+
+
+users = [User(id) for id in range(30, 10, -1)]
+print(get_plach1(), 'users before sorting', users)
+users.sort(key=attrgetter('user_id'))
+print(get_plach1(), 'users past sorting', users)
+print(min(users, key=attrgetter('user_id')))
+print(max(users, key=attrgetter('user_id')))
+
+prn_tem('1.15. Grouping Records Together Based on a Field')
+rows = [
+    {'address': '5412 N CLARK', 'date': '07/01/2012'},
+    {'address': '5148 N CLARK', 'date': '07/04/2012'},
+    {'address': '5800 E 58TH', 'date': '07/02/2012'},
+    {'address': '2122 N CLARK', 'date': '07/03/2012'},
+    {'address': '5645 N RAVENSWOOD', 'date': '07/02/2012'},
+    {'address': '1060 W ADDISON', 'date': '07/02/2012'},
+    {'address': '4801 N BROADWAY', 'date': '07/01/2012'},
+    {'address': '1039 W GRANVILLE', 'date': '07/04/2012'},
+]
+from operator import itemgetter
+from itertools import groupby
+
+rows.sort(key=itemgetter('date'))
+for date, items in groupby(rows, key=itemgetter('date')):
+    print(date)
+    for item in items:
+        print(item)
+
+from collections import defaultdict
+
+rows_by_date = defaultdict(list)
+for d in rows:
+    rows_by_date[d['date']].append(d)
+print('rows_by_date', rows_by_date)
+print(get_plach1(), 'rows groups by date:')
+for date in rows_by_date:
+    print(date, rows_by_date[date])
+
+prn_tem('1.16. Filtering Sequence Elements')
+mylist = [1, 4, -5, 10, -7, 2, 3, -1]
+fmylist = [n for n in mylist if n > 0]
+print('flist >0:', fmylist)
+fmylist = [n for n in mylist if n < 0]
+print('flist <0:', fmylist)
+
+# generator
+pos = (n for n in mylist if n > 0)
+for n in pos:
+    print(n)
+
+values = ['1', '2', '-3', '-', '4', 'N/A', '5']
+
+
+def is_int(n):
+    try:
+        val = int(n)
+        return True
+    except ValueError:
+        return False
+
+
+f_gen = (n for n in values)
+
+filtred_values = [n for n in filter(is_int, f_gen)]
+print('not filtered value:', values)
+print('filtered value:', filtred_values)
+mylist = [1, 4, -5, 10, -7, 2, 3, -1]
+import math
+
+my_sqrt_list1 = [math.sqrt(n) for n in mylist if n > 0]
+my_sqrt_list2 = [math.sqrt(n) if n > 0 else 0 for n in mylist]
+print('not filtered mylist:', mylist)
+print('filtered 1 mylist:', my_sqrt_list1)
+print('filtered 2 mylist:', my_sqrt_list2)
+
+prn_tem('1.17. Extracting a Subset of a Dictionary')
+prices = {
+    'ACME': 45.23,
+    'AAPL': 612.78,
+    'IBM': 205.55,
+    'HPQ': 37.20,
+    'FB': 10.75
+}
+p1 = {key:value for key, value in prices.items() if value>200}
+# Make a dictionary of tech stocks
+tech_names = { 'AAPL', 'IBM', 'HPQ', 'MSFT' }
+p2 = {key:value for  key, value in prices.items() if key in tech_names}
+gen1 = ((key,value) for key, value in prices.items() if key in prices.keys() & tech_names)
+p3 = dict(gen1)
+print(get_plach1())
+print(prices)
+print(p1)
+print(tech_names)
+print(p2)
+print(p3)
+
+prn_tem('1.18. Mapping Names to Sequence Elements')
