@@ -1,38 +1,25 @@
-str_plasholder = '-'
-str_plasholder_count = 5
-plasholder = str_plasholder * str_plasholder_count
-str_templat = plasholder + '{}' + plasholder + '\n'
-count_print: int = 20
-
-
-def get_plach(num):
-    return str_templat.format(num)
-
-
-def get_plach1():
+from chapter_0 import *
+count_print = 0
+def get_plach():
     global count_print
     count_print += 1
     return str_templat.format(count_print)
 
 
-def prn_tem(tem):
-    print('\n\n--------------', tem, '--------------\n\n')
-
-
 # 1.1. Unpacking a Sequence into Separate Variables
 p = 4, 5
 x, y = p
-print(get_plach(1), x, y)
+print(get_plach1(1), x, y)
 
 data = ['ACEM', 50, 91.1, (2012, 12, 21)]
 name, shared, price, date = data
-print(get_plach(2), name, shared, price, date)
+print(get_plach1(2), name, shared, price, date)
 _, shared, price, _ = data
-print(get_plach(3), shared, price)
+print(get_plach1(3), shared, price)
 
 s = 'Hello'
 a, b, s1, *d = s
-print(get_plach(4), a, b, s1, d)
+print(get_plach1(4), a, b, s1, d)
 
 
 # 1.2. Unpacking Elements from Iterables of Arbitrary Length
@@ -42,11 +29,11 @@ def drop_first_last(grades):
 
 
 record = 'Dave', 'dave@mail.com', '7777777', '6748-38383-9393'
-print(get_plach(5), drop_first_last(record))
+print(get_plach1(5), drop_first_last(record))
 
 *trailing, current = [10, 9, 8, 7, 7, 3, 2, 4, 5, 8]
-print(get_plach(6), 'trailing: ', trailing)
-print(get_plach(7), 'current: ', current)
+print(get_plach1(6), 'trailing: ', trailing)
+print(get_plach1(7), 'current: ', current)
 
 records = [
     ('foo', 1, 2),
@@ -56,11 +43,11 @@ records = [
 
 
 def do_foo(x, y):
-    print(get_plach(8), 'foo', x, y)
+    print(get_plach1(8), 'foo', x, y)
 
 
 def do_bar(s):
-    print(get_plach(9), 'bsr', s)
+    print(get_plach1(9), 'bsr', s)
 
 
 for tag, *args in records:
@@ -71,16 +58,16 @@ for tag, *args in records:
 
 line = 'nobody:*:-2:-2:Unprivileged User:/var/empty:/usr/bin/false'
 uname, *fields, homedir, hs = line.split(':')
-print(get_plach(10), 'uname:', uname)
-print(get_plach(11), 'fields:', fields)
-print(get_plach(12), 'homedir:', homedir)
-print(get_plach(13), 'sh:', hs)
+print(get_plach1(10), 'uname:', uname)
+print(get_plach1(11), 'fields:', fields)
+print(get_plach1(12), 'homedir:', homedir)
+print(get_plach1(13), 'sh:', hs)
 
 record = 'ACME', 50, 123.45, (12, 18, 2012)
 name, *_, (*_, year) = record
-print(get_plach(14), 'record:', record)
-print(get_plach(15), 'name:', name)
-print(get_plach(16), 'year:', year)
+print(get_plach1(14), 'record:', record)
+print(get_plach1(15), 'name:', name)
+print(get_plach1(16), 'year:', year)
 
 items = [1, 10, 7, 4, 5, 9]
 
@@ -106,7 +93,7 @@ def search(lines, pattern, history=5):
         prevlines.append(line)
 
 
-with open('some_text.text') as f:
+with open('test_files/some_text.text') as f:
     for line, prevlines in search(f, 'python', 5):
         for pline in prevlines:
             print(pline, end='')
@@ -190,7 +177,7 @@ q.push(Item('stam'), 4)
 q.push(Item('fjjfjf'), 1)
 q.push(Item('jdjdj'), 7)
 q.push(Item('fgro'), 3)
-print(get_plach(22), q.pop(), q.pop(), q.pop(), q.pop(), q.pop(), q.pop())
+print(get_plach1(22), q.pop(), q.pop(), q.pop(), q.pop(), q.pop(), q.pop())
 
 prn_tem('1.6. Mapping Keys to Multiple Values in a Dictionary')
 
@@ -202,7 +189,7 @@ e = {
     'a': {1, 2, 3},
     'b': {4, 5, 6}
 }
-print(get_plach1(), d, e)
+print(get_plach(), d, e)
 from collections import defaultdict
 
 d = defaultdict(list)
@@ -218,7 +205,7 @@ e['c'].add(2)
 e['t'].add(6)
 e['ad'].add(2)
 e['af'].add(2)
-print(get_plach1(), d, e)
+print(get_plach(), d, e)
 
 prn_tem('1.7. Keeping Dictionaries in Order')
 
@@ -234,12 +221,12 @@ d['sld'] = 3
 d['mvd'] = 8
 d['orti'] = 41
 d[']['] = 10
-print(get_plach1(), d)
+print(get_plach(), d)
 for key in d:
     print(key, ':', d[key], '; ', end='')
 import json
 
-print(get_plach1(), json.dumps(d))
+print(get_plach(), json.dumps(d))
 
 prn_tem('1.8. Calculating with Dictionaries')
 prices = {
@@ -250,18 +237,18 @@ prices = {
     'FB': 10.75
 }
 zip_prices = zip(prices.values(), prices.keys())
-print(get_plach1(), zip_prices)
-print(get_plach1(), min(zip_prices))
+print(get_plach(), zip_prices)
+print(get_plach(), min(zip_prices))
 zip_prices = zip(prices.values(), prices.keys())
-print(get_plach1(), max(zip_prices))
+print(get_plach(), max(zip_prices))
 zip_prices = zip(prices.values(), prices.keys())
-print(get_plach1(), sorted(zip_prices))
+print(get_plach(), sorted(zip_prices))
 
-print(get_plach1(), min(prices))
+print(get_plach(), min(prices))
 print(max(prices))
-print(get_plach1(), min(prices.values()))
+print(get_plach(), min(prices.values()))
 print(max(prices.values()))
-print(get_plach1(), min(prices, key=lambda s: prices[s]))
+print(get_plach(), min(prices, key=lambda s: prices[s]))
 print(max(prices, key=lambda s: prices[s]))
 
 prn_tem('1.9. Finding Commonalities in Two Dictionaries')
@@ -280,13 +267,13 @@ print('b:', b)
 print('set(a.items()):', set(a.items()))
 print('a.items():', a.items())
 
-print(get_plach1(), 'a.keys() & b.keys();', a.keys() & b.keys())
-print(get_plach1(), 'a.keys() - b.keys():', a.keys() - b.keys())
-print(get_plach1(), 'a.items() & b.items():', a.items() & b.items())
-print(get_plach1(), 'a.items() - b.items():', a.items() - b.items())
+print(get_plach(), 'a.keys() & b.keys();', a.keys() & b.keys())
+print(get_plach(), 'a.keys() - b.keys():', a.keys() - b.keys())
+print(get_plach(), 'a.items() & b.items():', a.items() & b.items())
+print(get_plach(), 'a.items() - b.items():', a.items() - b.items())
 
 c = {key: a[key] for key in a.keys() - {'a', 'z'}}
-print(get_plach1(), c)
+print(get_plach(), c)
 
 prn_tem('1.10. Removing Duplicates from a Sequence while Maintaining Order')
 
@@ -302,7 +289,7 @@ def dedupe(items, key=None):
 
 a = [{'x': 1, 'y': 2}, {'x': 1, 'y': 3}, {'x': 1, 'y': 2}, {'x': 2, 'y': 4}]
 
-print(get_plach1(), list(dedupe(a, key=lambda i: ((i['x']), i['y']))))
+print(get_plach(), list(dedupe(a, key=lambda i: ((i['x']), i['y']))))
 
 prn_tem('1.11. Naming a Slice')
 ###### 0123456789012345678901234567890123456789012345678901234567890'
@@ -311,7 +298,7 @@ print('record.index("100")', record.index('100'))
 print('record.index("513")', record.index('513'))
 SHARES = slice(20, 32)
 PRICE = slice(36, 42)
-print(get_plach1(), record[SHARES], record[PRICE])
+print(get_plach(), record[SHARES], record[PRICE])
 
 prn_tem('1.12. Determining the Most Frequently Occurring Items in a Sequence')
 words = [
@@ -324,17 +311,17 @@ from collections import Counter
 
 word_counts = Counter(words)
 top_three = word_counts.most_common(3)
-print(get_plach1(), 'top_three', top_three)
-print(get_plach1(), 'word_counts.items()', word_counts.items())
-print(get_plach1(), "word_counts['look']", word_counts['look'])
-print(get_plach1(), "word_counts['my']", word_counts['my'])
+print(get_plach(), 'top_three', top_three)
+print(get_plach(), 'word_counts.items()', word_counts.items())
+print(get_plach(), "word_counts['look']", word_counts['look'])
+print(get_plach(), "word_counts['my']", word_counts['my'])
 
 for word in word_counts:
     word_counts[word] += 1
-print(get_plach1(), 'word_counts.items()', word_counts.items())
+print(get_plach(), 'word_counts.items()', word_counts.items())
 morewords = ['why', 'are', 'you', 'not', 'looking', 'in', 'my', 'eyes']
 word_counts.update(morewords)
-print(get_plach1(), word_counts)
+print(get_plach(), word_counts)
 
 prn_tem('1.13. Sorting a List of Dictionaries by a Common Key')
 
@@ -365,9 +352,9 @@ class User:
 
 
 users = [User(id) for id in range(30, 10, -1)]
-print(get_plach1(), 'users before sorting', users)
+print(get_plach(), 'users before sorting', users)
 users.sort(key=attrgetter('user_id'))
-print(get_plach1(), 'users past sorting', users)
+print(get_plach(), 'users past sorting', users)
 print(min(users, key=attrgetter('user_id')))
 print(max(users, key=attrgetter('user_id')))
 
@@ -397,7 +384,7 @@ rows_by_date = defaultdict(list)
 for d in rows:
     rows_by_date[d['date']].append(d)
 print('rows_by_date', rows_by_date)
-print(get_plach1(), 'rows groups by date:')
+print(get_plach(), 'rows groups by date:')
 for date in rows_by_date:
     print(date, rows_by_date[date])
 
@@ -446,13 +433,13 @@ prices = {
     'HPQ': 37.20,
     'FB': 10.75
 }
-p1 = {key:value for key, value in prices.items() if value>200}
+p1 = {key: value for key, value in prices.items() if value > 200}
 # Make a dictionary of tech stocks
-tech_names = { 'AAPL', 'IBM', 'HPQ', 'MSFT' }
-p2 = {key:value for  key, value in prices.items() if key in tech_names}
-gen1 = ((key,value) for key, value in prices.items() if key in prices.keys() & tech_names)
+tech_names = {'AAPL', 'IBM', 'HPQ', 'MSFT'}
+p2 = {key: value for key, value in prices.items() if key in tech_names}
+gen1 = ((key, value) for key, value in prices.items() if key in prices.keys() & tech_names)
 p3 = dict(gen1)
-print(get_plach1())
+print(get_plach())
 print(prices)
 print(p1)
 print(tech_names)
@@ -460,3 +447,75 @@ print(p2)
 print(p3)
 
 prn_tem('1.18. Mapping Names to Sequence Elements')
+from collections import namedtuple
+
+Subscriber = namedtuple('Subscriber', ['addr', 'joined'])
+sub = Subscriber('sibiriakoff2006#yandex.ru', '2010-10-19')
+print(sub)
+print(sub.addr)
+print(sub.joined)
+print(len(sub))
+adr, joined = sub
+print((adr, joined))
+a = {'name': 'ACME', 'shares': 100, 'price': 123.45}
+Stock = namedtuple('Stack', ['name', 'shares', 'price'])
+
+
+def convert_stock(record):
+    return Stock(**record)
+
+
+print(convert_stock(a))
+
+Stock2 = namedtuple('Stock2', ['name', 'shares', 'price', 'date', 'tame'])
+stock_template = Stock2(name=None, shares=None, price=None, date=None, tame=None)
+print(stock_template)
+
+
+def use_tempate(rec):
+    return stock_template._replace(**rec)
+
+
+b = {'name': 'ACME', 'shares': 100, 'price': 123.45, 'date': '12/17/2012'}
+print(use_tempate(a))
+print(use_tempate(b))
+
+prn_tem('1.19. Transforming and Reducing Data at the Same Time')
+nums = [1, 2, 3, 4, 5]
+print(sum(x * x for x in nums))
+
+s = ('ACME', 50, 125, 45)
+print(','.join(str(x) for x in s))
+
+portfolio = [
+    {'name': 'GOOG', 'shares': 50},
+    {'name': 'YHOO', 'shares': 75},
+    {'name': 'AOL', 'shares': 20},
+    {'name': 'SCOX', 'shares': 65}
+]
+print(min(s.__getitem__('shares') for s in portfolio))
+print(min(portfolio, key=itemgetter('shares')))
+print(min(portfolio, key=lambda i: i['shares']))
+
+prn_tem('1.20. Combining Multiple Mappings into a Single Mapping')
+a = {'x': 1, 'z': 3 }
+b = {'y': 2, 'z': 4 }
+
+from collections import ChainMap
+c = ChainMap(a,b)
+print(c.items())
+print(c.keys())
+print(c.values())
+print(c['x'])
+print(c['y'])
+print(c['z'])
+print(c['x'])
+print(len(c))
+print(list(c.keys()))
+print(list(c.values()))
+del c['z']
+print(c)
+merged = dict(a)
+merged.update(b)
+print(merged)
+

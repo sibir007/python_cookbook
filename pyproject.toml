@@ -5,7 +5,12 @@ description = ""
 authors = [
     {name = "sibir007", email = "sibiriakoff2006@yandex.ru"},
 ]
-dependencies = []
+dependencies = [
+    "numpy>=1.24.4",
+    "python-dateutil>=2.8.2",
+    "pytz>=2023.3.post1",
+    "pyserial>=3.5",
+]
 requires-python = ">=3.8"
 readme = "README.md"
 license = {text = "MIT"}
